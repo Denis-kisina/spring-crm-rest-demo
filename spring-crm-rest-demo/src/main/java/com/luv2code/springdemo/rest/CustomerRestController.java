@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,10 +20,18 @@ public class CustomerRestController {
 	private CustomerService customerService;
 
 	// add mapping for get customer
-	@GetMapping("customers")
+	@GetMapping("/customers")
 	public List<Customer> getCustomer() {
 
 		return customerService.getCustomers();
 
+	}
+
+	// add mapping for get customers/customerId
+	@GetMapping("/customers/{customerId}")
+	public Customer getCustomer(@PathVariable int customerId) {
+		Customer theCustomer = customerService.getCustomer(customerId);
+
+		return theCustomer;
 	}
 }
